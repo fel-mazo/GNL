@@ -12,7 +12,7 @@
 
 CC		= gcc
 NAME	= libft.a
-CFLAGS	= -Wall -Wextra -Werror
+CFLAGS	= -g -Wall -Wextra -Werror
 SRC		= ft_atoi.c ft_bzero.c ft_echocharptr.c ft_echoint.c \
 		 ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c \
 		 ft_islower.c ft_isprint.c ft_isupper.c ft_itoa.c \

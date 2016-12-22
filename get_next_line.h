@@ -6,20 +6,29 @@
 /*   By: fel-mazo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/22 00:50:17 by fel-mazo          #+#    #+#             */
-/*   Updated: 2016/12/22 01:23:21 by fel-mazo         ###   ########.fr       */
+/*   Updated: 2016/12/22 08:53:10 by fel-mazo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
 
-#include "libft/libft.h"
-#include <sys/types.h>
-#include <sys/uio.h>
-#include <unistd.h>
+# include "libft/libft.h"
+# include <sys/types.h>
+# include <sys/uio.h>
+# include <unistd.h>
+# include <stdlib.h>
+# include <fcntl.h>
 
-# define BUFF_SIZE 3
+# define BUFF_SIZE 4
 
-int		get_next_line(const int fd, char **line);
+typedef struct		s_gnl
+{
+	char			*keep;
+	int				fd;
+	struct s_gnl	*next;
+}					t_gnl;
+
+int					get_next_line(const int fd, char **line);
 
 #endif

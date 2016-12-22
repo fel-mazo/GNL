@@ -1,28 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_memrealloc.c                                    :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fel-mazo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2016/12/03 18:55:13 by fel-mazo          #+#    #+#             */
-/*   Updated: 2016/12/22 08:56:30 by fel-mazo         ###   ########.fr       */
+/*   Created: 2016/12/22 03:51:35 by fel-mazo          #+#    #+#             */
+/*   Updated: 2016/12/22 07:18:32 by fel-mazo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "get_next_line.h"
+#include <stdio.h>
 
-void	*ft_memrealloc(void *org, size_t len, size_t newlen)
+int		main(int argc, char **argv)
 {
-	void	*res;
-	
-	if (!org)
-		return (NULL);
-	if (len >= newlen)
-		return (org);
-	if (len == 0)
-		return ((void *)malloc(newlen));
-	res = (void *)malloc(newlen);
-	res = ft_memcpy(res, org, len);
-	return (res);
+	char	*line;
+	int		fd;
+
+	if (argc == 2)
+	{
+		fd = open(argv[1], O_RDONLY);
+		while (get_next_line(fd, &line))
+		{
+			printf("[%s]\n", line);
+		}
+
+	}
+	return (0);
 }
