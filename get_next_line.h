@@ -6,7 +6,7 @@
 /*   By: fel-mazo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/22 00:50:17 by fel-mazo          #+#    #+#             */
-/*   Updated: 2016/12/22 08:53:10 by fel-mazo         ###   ########.fr       */
+/*   Updated: 2016/12/22 16:57:40 by fel-mazo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 
-# define BUFF_SIZE 4
+# define BUFF_SIZE 100
 
 typedef struct		s_gnl
 {

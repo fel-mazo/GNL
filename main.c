@@ -6,7 +6,7 @@
 /*   By: fel-mazo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/22 03:51:35 by fel-mazo          #+#    #+#             */
-/*   Updated: 2016/12/22 07:18:32 by fel-mazo         ###   ########.fr       */
+/*   Updated: 2016/12/22 16:56:48 by fel-mazo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,20 @@ int		main(int argc, char **argv)
 {
 	char	*line;
 	int		fd;
-
-	if (argc == 2)
+	int		fd2;
+	int		ret;
+	if (argc == 3)
 	{
 		fd = open(argv[1], O_RDONLY);
-		while (get_next_line(fd, &line))
+		fd2 = open(argv[2], O_RDONLY);
+		while ((ret = get_next_line(fd, &line)))
 		{
-			printf("[%s]\n", line);
+			printf("[%s|%d]\n", line, ret);
+		}
+		while((ret = get_next_line(fd2, &line)) >= 0)
+		{
+			getchar();
+			printf("[%s|%d]\n", line, ret);
 		}
 
 	}

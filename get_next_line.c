@@ -6,11 +6,21 @@
 /*   By: fel-mazo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/22 01:36:11 by fel-mazo          #+#    #+#             */
-/*   Updated: 2016/12/22 08:31:01 by fel-mazo         ###   ########.fr       */
+/*   Updated: 2016/12/22 18:18:07 by fel-mazo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <stdio.h>
+
+static void		print(t_gnl *head)
+{
+	while (head)
+	{
+		printf("%d>>", head->fd);
+		head = head->next;
+	}
+}
 
 static t_gnl	*new(int fd)
 {
@@ -39,11 +49,13 @@ static int		more(t_gnl *f, char *buff)
 {
 	size_t	len1;
 	size_t	len2;
+	char	*tmp;
 
 	len1 = ft_strlen(f->keep);
 	len2 = ft_strlen(buff);
-	ft_memrealloc(f->keep, len1 + 1, len1 + len2 + 1);
-	ft_strncat(f->keep, buff, len2);
+	tmp = f->keep;
+	f->keep = ft_strjoin(tmp, buff);
+	free(tmp);
 	return (ft_strchri(f->keep, '\n'));
 }
 
@@ -57,7 +69,7 @@ static void		less(t_gnl *f)
 	len = ft_strlen(f->keep);
 	here = ft_strchri(f->keep, '\n');
 	if (here >= 0)
-		f->keep = ft_strsub(f->keep, ft_strchri(f->keep, '\n'), len);
+		f->keep = ft_strsub(f->keep, here, len);
 	else
 		f->keep = ft_strnew(0);
 	free(tmp);
@@ -77,12 +89,13 @@ int				get_next_line(const int fd, char **line)
 		return (-1);
 	*line = ft_strnew(0);
 	head = (head == NULL) ? new(fd) : head;
+	print(head);
 	f = get(head, fd);
 	r[2] = ft_strlen(f->keep);
-	here = -1;
+	here = more(f, "\0");
 	while (here < 0 && r[0] > 0)
 	{
-		r[0] = read(fd, buff, BUFF_SIZE);
+		r[0] = read(f->fd, buff, BUFF_SIZE);
 		r[1] += r[0];
 		buff[r[0]] = '\0';
 		here = more(f, buff);
