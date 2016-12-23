@@ -6,27 +6,18 @@
 /*   By: fel-mazo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/22 01:36:11 by fel-mazo          #+#    #+#             */
-/*   Updated: 2016/12/22 18:18:07 by fel-mazo         ###   ########.fr       */
+/*   Updated: 2016/12/23 10:01:00 by fel-mazo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 #include <stdio.h>
 
-static void		print(t_gnl *head)
-{
-	while (head)
-	{
-		printf("%d>>", head->fd);
-		head = head->next;
-	}
-}
-
 static t_gnl	*new(int fd)
 {
 	t_gnl	*ret;
 
-	ret = (t_gnl *)malloc(sizeof(t_gnl));
+	ret = (t_gnl *)ft_memalloc(sizeof(t_gnl));
 	ret->fd = fd;
 	ret->keep = ft_strnew(0);
 	ret->next = NULL;
@@ -35,14 +26,18 @@ static t_gnl	*new(int fd)
 
 static t_gnl	*get(t_gnl *head, int fd)
 {
-	while (head)
+	t_gnl	*tmp;
+
+	tmp = head;
+	while (tmp)
 	{
-		if (head->fd == fd)
-			return (head);
-		head = head->next;
+		if (tmp->fd == fd)
+			return (tmp);
+		head = tmp;
+		tmp = tmp->next;
 	}
-	head = new(fd);
-	return (head);
+	head->next = new(fd);
+	return (head->next);
 }
 
 static int		more(t_gnl *f, char *buff)
@@ -69,7 +64,7 @@ static void		less(t_gnl *f)
 	len = ft_strlen(f->keep);
 	here = ft_strchri(f->keep, '\n');
 	if (here >= 0)
-		f->keep = ft_strsub(f->keep, here, len);
+		f->keep = ft_strsub(tmp, here, len);
 	else
 		f->keep = ft_strnew(0);
 	free(tmp);
@@ -87,9 +82,7 @@ int				get_next_line(const int fd, char **line)
 	r[0] = 1;
 	if (fd < 0 || !line)
 		return (-1);
-	*line = ft_strnew(0);
 	head = (head == NULL) ? new(fd) : head;
-	print(head);
 	f = get(head, fd);
 	r[2] = ft_strlen(f->keep);
 	here = more(f, "\0");

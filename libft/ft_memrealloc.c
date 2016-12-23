@@ -6,7 +6,7 @@
 /*   By: fel-mazo <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/03 18:55:13 by fel-mazo          #+#    #+#             */
-/*   Updated: 2016/12/22 14:27:06 by fel-mazo         ###   ########.fr       */
+/*   Updated: 2016/12/23 10:24:55 by fel-mazo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	*ft_memrealloc(void *org, size_t len, size_t newlen)
 {
 	void	*res;
-	
+
 	if (!org)
 		return (NULL);
 	if (len >= newlen)
